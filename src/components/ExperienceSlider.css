@@ -1,0 +1,37 @@
+.exp-slider {
+  margin-bottom: 20px;
+}
+
+.exp-label {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* TRACK */
+.range-track {
+  height: 10px;
+  width: 100%;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+
+/* THUMB */
+.range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+
+  background: linear-gradient(135deg, #42a5f5, #7e57c2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  cursor: grab;
+  outline: none;
+}
+
+/* Hover effect */
+.range-thumb:hover {
+  transform: scale(1.1);
+}
