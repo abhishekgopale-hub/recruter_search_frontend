@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./app.css";
+import "./App.css";
 import MultiSelect from "./components/MultiSelect";
 import "bootstrap/dist/css/bootstrap.min.css";
 //import logo from "/public/logo.png";
@@ -9,7 +9,7 @@ import logo from "/logo.png";
 
 
 
-const API = "http://43.204.100.249:5000/api/search";
+const API = "/api";
 
 function App() {
 
@@ -49,7 +49,7 @@ gender:""
 /* ================= LOAD ================= */
 
 useEffect(()=>{
-axios.get(`${API}/dropdown-options`)
+axios.get(`${API}/search/dropdown-options`)
 .then(res=>setDropdowns(res.data))
 .catch(err=>console.log(err));
 },[]);
@@ -70,7 +70,7 @@ max_experience:maxExp
 };
 }
 
-const res = await axios.get(`${API}/search-sql`,{
+const res = await axios.get(`${API}/search/search-sql`,{
 params:{
 ...filters,
 ...experienceFilter
@@ -102,7 +102,7 @@ const downloadExcel = async () => {
     }
 
     const response = await axios.post(
-      `${API}/sql/export`,
+      `${API}/search/sql/export`,
       {
         ...filters,
         ...experienceFilter,
@@ -128,15 +128,20 @@ const downloadExcel = async () => {
 
 /* ================= VIEW ================= */
 
-const handleView=(candidate)=>{
-setSelectedCandidate(candidate);
-setShowModal(true);
+ 
+const handleView = (candidate) => {
+  setSelectedCandidate({
+    ...candidate,
+    resume_link: candidate.resume_link || `/api/download/${candidate.id}`
+  });
+  setShowModal(true);
 };
 
-const closeModal=()=>{
-setShowModal(false);
-setSelectedCandidate(null);
+const closeModal = () => {
+  setShowModal(false);
+  setSelectedCandidate(null);
 };
+
 
 /* ================= MARK INACTIVE ================= */
 
@@ -150,11 +155,11 @@ const handleMarkInactive = async () => {
 
   try {
 
-    await axios.post(`${API}/candidate/status`, {
-      id: selectedCandidate.id,
-      status: "inactive"
-    });
-
+    
+await axios.post(`${API}/search/candidate/status`, {
+  id: selectedCandidate.id,
+  status: "inactive"
+});
     alert("Candidate marked inactive");
 
     setResults(prev =>
@@ -171,15 +176,19 @@ const handleMarkInactive = async () => {
   
 
 /* ================= HANDLE DOWNLOAD LINK ================= */
+      
 
 const handleDownload = () => {
-  if (!selectedCandidate?.download_link) {
+  if (!selectedCandidate?.resume_link) {
     alert("Resume not available");
     return;
   }
 
-  window.open(selectedCandidate.download_link);
+  window.open(selectedCandidate.resume_link, "_blank");
 };
+
+
+
 /* ================= PARSE ================= */
 
 const parseJSONField=(field)=>{
@@ -395,25 +404,25 @@ onChange={(val)=>setFilters({...filters,job_titles:val})}
 
 <tbody>
 
+
 {Object.entries(selectedCandidate)
   .filter(([key]) =>
-    !["download_link", "download_resume", "file_path"].includes(key)
+    !["download_link", "download_resume", "file_path", "resume_link"].includes(key)
   )
-  .map(([key,value])=>{
+  .map(([key, value]) => {
 
-let display=value;
+    let display = value;
 
-if(Array.isArray(value)) display=value.join(", ");
-else if(typeof value==="object" && value!==null) display=JSON.stringify(value);
+    if (Array.isArray(value)) display = value.join(", ");
+    else if (typeof value === "object" && value !== null) display = JSON.stringify(value);
 
-return(
-<tr key={key}>
-<td>{key}</td>
-<td>{display?.toString() || "-"}</td>
-</tr>
-);
-
-})}
+    return (
+      <tr key={key}>
+        <td>{key}</td>
+        <td>{display?.toString() || "-"}</td>
+      </tr>
+    );
+  })}
 
 </tbody>
 
@@ -423,7 +432,7 @@ return(
 
 <div className="modal-footer">
 
-{selectedCandidate?.download_link && (
+{selectedCandidate?.resume_link && (
   <button
     className="btn btn-success"
     onClick={handleDownload}
