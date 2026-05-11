@@ -3,7 +3,7 @@ name: Deploy Search Frontend
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -20,7 +20,7 @@ jobs:
           script: |
             cd ~/recruter_search_frontend
 
-            git pull origin main
+            git pull origin master
 
             npm install
 
