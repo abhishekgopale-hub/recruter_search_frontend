@@ -67,7 +67,7 @@ export default function LoginPage({ onLoginSuccess }) {
               type="text"
               id="userId"
               className="form-control"
-              placeholder="e.g., emp001"
+              placeholder="Enter your user ID"
               value={userId}
               onChange={(e) => setUserId(e.target.value)}
               disabled={loading}
@@ -81,7 +81,7 @@ export default function LoginPage({ onLoginSuccess }) {
               type="password"
               id="password"
               className="form-control"
-              placeholder="abc@123"
+              placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
@@ -97,14 +97,6 @@ export default function LoginPage({ onLoginSuccess }) {
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
-
-        <div className="login-info mt-3">
-          <p className="text-muted">Demo Credentials:</p>
-          <ul className="text-muted small">
-            <li>User ID: <strong>emp001</strong>, emp002, emp003, emp004</li>
-            <li>Password: <strong>abc@123</strong></li>
-          </ul>
-        </div>
       </div>
     </div>
   );
