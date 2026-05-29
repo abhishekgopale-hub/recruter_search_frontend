@@ -4,7 +4,7 @@ import MultiSelect from "./MultiSelect";
 import "bootstrap/dist/css/bootstrap.min.css";
 import logo from "/logo.png";
 
-const API = "http://localhost:5000/api";
+const API = "/api";
 
 export default function SearchPage({ user }) {
   const [results, setResults] = useState([]);

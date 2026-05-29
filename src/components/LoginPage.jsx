@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./LoginPage.css";
 
-const API = "http://localhost:5000/api";
+const API = "/api";
 
 export default function LoginPage({ onLoginSuccess }) {
   const [userId, setUserId] = useState("");
@@ -41,7 +41,7 @@ export default function LoginPage({ onLoginSuccess }) {
         setError(data.error || "Login failed");
       }
     } catch (err) {
-      setError("Login error: " + err.message + ". Check if backend is running on http://localhost:5000");
+      setError("Login error: " + err.message + ". Check if backend is running");
       console.error("Login error details:", err);
     } finally {
       setLoading(false);
