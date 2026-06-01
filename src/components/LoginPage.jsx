@@ -81,7 +81,7 @@ export default function LoginPage({ onLoginSuccess }) {
               type="password"
               id="password"
               className="form-control"
-              placeholder="abc@123"
+              placeholder="passWord"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={loading}
@@ -98,13 +98,7 @@ export default function LoginPage({ onLoginSuccess }) {
           </button>
         </form>
 
-        <div className="login-info mt-3">
-          <p className="text-muted">Demo Credentials:</p>
-          <ul className="text-muted small">
-            <li>User ID: <strong>emp001</strong>, emp002, emp003, emp004</li>
-            <li>Password: <strong>abc@123</strong></li>
-          </ul>
-        </div>
+      
       </div>
     </div>
   );
