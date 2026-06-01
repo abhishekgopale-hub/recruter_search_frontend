@@ -5,7 +5,7 @@ import SearchPage from "./components/SearchPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const API = "/api";
+const API = "/apiapi/search/";
 
 function App() {
   const [user, setUser] = useState(null);
